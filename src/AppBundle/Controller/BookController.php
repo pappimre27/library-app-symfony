@@ -23,18 +23,18 @@ class BookController extends Controller
         return $this->render('books/index.html.twig', array('books' => $books));
     }
 
-//    /**
-//     * @Route("/book/save")
-//     */
+    /**
+     * @Route("/book/save")
+     */
 //    public function save()
 //    {
 //        $entityManager = $this->getDoctrine()->getManager();
 //
 //        $book = new Book();
-//        $book->setIsbn("adfds3455234234test");
-//        $book->setAuthor("Testv2 Testv2");
-//        $book->setReleaseYear(2007);
-//        $book->setTitle("Testv2");
+//        $book->setIsbn("Wdfds3455234234test");
+//        $book->setAuthor("Westv2 Testv2");
+//        $book->setReleaseYear(2009);
+//        $book->setTitle("Westv2");
 //
 //        $entityManager->persist($book);
 //

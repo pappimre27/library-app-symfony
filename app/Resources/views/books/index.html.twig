@@ -4,8 +4,7 @@
 
 {% block body %}
     {% if books %}
-        <table id="articles" class="table table-striped">
-            <thead>
+        <table id="books" class="table">
             <tr>
                 <th>ISBN</th>
                 <th>Book Title</th>
@@ -13,20 +12,20 @@
                 <th>Release year</th>
                 <th>Actions</th>
             </tr>
-            </thead>
-            <tbody>
             {% for book in books %}
+
                 <tr>
                     <td>{{ book.isbn }}</td>
-                    <td>{{ book.title}}</td>
+                    <td>{{ book.title }}</td>
                     <td>{{ book.author }}</td>
                     <td>{{ book.releaseYear }}</td>
                     <td>
-                        <a href="#" class="btn btn-danger delete-book" data-id="{{ book.id }}">Delete</a>
+                        <a href="#" class="btn btn-danger delete-book" data-id="{{ book.id }}"
+                           onclick="alert({{ book.id }})">Delete</a>
                     </td>
                 </tr>
             {% endfor %}
-            </tbody>
+
         </table>
     {% else %}
         <p>No books to display</p>
@@ -35,6 +34,20 @@
 
 {% block javascripts %}
     {#    <script src="/js/main.js"></script>#}
+    <script>
+        const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+        const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+                v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+        )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+        document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+            const table = th.closest('table');
+            const tbody = table.querySelector('tbody');
+            Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+                .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+                .forEach(tr => tbody.appendChild(tr));
+        })));
+    </script>
 {% endblock %}
 
 
