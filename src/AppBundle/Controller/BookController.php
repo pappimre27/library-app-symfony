@@ -26,21 +26,5 @@ class BookController extends Controller
     /**
      * @Route("/book/save")
      */
-//    public function save()
-//    {
-//        $entityManager = $this->getDoctrine()->getManager();
-//
-//        $book = new Book();
-//        $book->setIsbn("Wdfds3455234234test");
-//        $book->setAuthor("Westv2 Testv2");
-//        $book->setReleaseYear(2009);
-//        $book->setTitle("Westv2");
-//
-//        $entityManager->persist($book);
-//
-//        $entityManager->flush();
-//
-//        return new Response('Saved a book with the id: ' . $book->getId());
-//    }
 }
 

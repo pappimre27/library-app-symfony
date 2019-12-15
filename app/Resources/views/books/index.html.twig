@@ -5,6 +5,7 @@
 {% block body %}
     {% if books %}
         <table id="books" class="table">
+            <thead>
             <tr>
                 <th>ISBN</th>
                 <th>Book Title</th>
@@ -12,6 +13,8 @@
                 <th>Release year</th>
                 <th>Actions</th>
             </tr>
+            </thead>
+            <tbody>
             {% for book in books %}
 
                 <tr>
@@ -24,8 +27,9 @@
                            onclick="alert({{ book.id }})">Delete</a>
                     </td>
                 </tr>
-            {% endfor %}
 
+            {% endfor %}
+            </tbody>
         </table>
     {% else %}
         <p>No books to display</p>
@@ -43,7 +47,7 @@
         document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
             const table = th.closest('table');
             const tbody = table.querySelector('tbody');
-            Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+            Array.from(tbody.querySelectorAll('tr'))
                 .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
                 .forEach(tr => tbody.appendChild(tr));
         })));
