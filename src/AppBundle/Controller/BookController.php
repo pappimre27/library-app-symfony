@@ -34,7 +34,6 @@ class BookController extends Controller
      */
     public function addBook(Request $request)
     {
-
         $book = new Book();
         $form = $this->createFormBuilder($book)
             ->add('isbn', 'text', array(
@@ -54,6 +53,19 @@ class BookController extends Controller
                 'attr' => array('class' => 'btn btn-primary mt-3')
             ))
             ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $book = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($book);
+            $entityManager->flush();
+
+            return $this->redirect('/');
+        }
 
         return $this->render('books/add.html.twig', array(
             'form' => $form->createView()
