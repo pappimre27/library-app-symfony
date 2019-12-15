@@ -16,17 +16,16 @@
             </thead>
             <tbody>
             {% for book in books %}
-
                 <tr>
                     <td>{{ book.isbn }}</td>
                     <td>{{ book.title }}</td>
                     <td>{{ book.author }}</td>
                     <td>{{ book.releaseYear }}</td>
                     <td>
-                        <a href="#" class="btn btn-danger delete-book" data-id="{{ book.id }}">Delete</a>
+                        <a href="#" class="btn btn-danger delete-book"
+                           data-id="{{ book.id }}">Delete</a>
                     </td>
                 </tr>
-
             {% endfor %}
             </tbody>
         </table>
@@ -36,7 +35,7 @@
 {% endblock %}
 
     {% block javascripts %}
-        <script src={{ asset('main.js') }}></script>
+        <script src={{ asset('js/main.js') }}></script>
 
     {% endblock %}
 

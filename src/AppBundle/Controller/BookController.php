@@ -22,29 +22,12 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = $this->getDoctrine()->getRepository(Book::class)->findAll();
+        $books = $this->getDoctrine()
+            ->getRepository(Book::class)
+            ->findAll();
         return $this->render('books/index.html.twig', array('books' => $books));
     }
 
-    /**
-     * @Route("/book/delete/{id}")
-     * @Method({"DELETE"})
-     * @param Request $request
-     * @param $id
-     */
-    public function deleteBook(Request $request, $id)
-    {
-        $book = $this->getDoctrine()
-            ->getRepository(Book::class)
-            ->find($id);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($book);
-        $entityManager->flush();
-
-        $response = new Response();
-        $response->send();
-    }
 
     /**
      * @Route("/book/new")
@@ -90,6 +73,29 @@ class BookController extends Controller
         return $this->render('books/add.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * @Route("/book/delete/{id}")
+     * @Method({"DELETE"})
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteBook(Request $request, $id)
+    {
+        $book = $this->getDoctrine()
+            ->getRepository(Book::class)
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($book);
+        $entityManager->flush();
+
+        $response = new Response();
+        $response->send();
+
+        return $this->redirect('/');
     }
 
 
