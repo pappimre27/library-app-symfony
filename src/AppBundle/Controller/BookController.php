@@ -20,14 +20,34 @@ class BookController extends Controller
      * @Route("/")
      * @Method({"GET"})
      */
-    public function index(): Response
+    public function index()
     {
         $books = $this->getDoctrine()->getRepository(Book::class)->findAll();
         return $this->render('books/index.html.twig', array('books' => $books));
     }
 
     /**
-     * @Route("/book/new", name="new book")
+     * @Route("/book/delete/{id}")
+     * @Method({"DELETE"})
+     * @param Request $request
+     * @param $id
+     */
+    public function deleteBook(Request $request, $id)
+    {
+        $book = $this->getDoctrine()
+            ->getRepository(Book::class)
+            ->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($book);
+        $entityManager->flush();
+
+        $response = new Response();
+        $response->send();
+    }
+
+    /**
+     * @Route("/book/new")
      * Method({"GET", "POST"})
      * @param Request $request
      * @return Response

@@ -23,8 +23,7 @@
                     <td>{{ book.author }}</td>
                     <td>{{ book.releaseYear }}</td>
                     <td>
-                        <a href="#" class="btn btn-danger delete-book" data-id="{{ book.id }}"
-                           onclick="alert({{ book.id }})">Delete</a>
+                        <a href="#" class="btn btn-danger delete-book" data-id="{{ book.id }}">Delete</a>
                     </td>
                 </tr>
 
@@ -36,9 +35,9 @@
     {% endif %}
 {% endblock %}
 
-{% block javascripts %}
-    <script src={{ asset('main.js') }}></script>
+    {% block javascripts %}
+        <script src={{ asset('main.js') }}></script>
 
-{% endblock %}
+    {% endblock %}
 
 
